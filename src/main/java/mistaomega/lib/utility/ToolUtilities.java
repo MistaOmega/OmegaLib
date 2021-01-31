@@ -8,10 +8,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.*;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
 
 public class ToolUtilities
@@ -27,9 +24,9 @@ public class ToolUtilities
      */
     public static BlockRayTraceResult raytraceFromEntity(Entity e, double distance, boolean fluids)
     {
-        Vector3d lookVec = e.getLook(1); // Where the player is looking
-        Vector3d eyeVec = e.getEyePosition(1); // This is the player's eye, the origin for the vector cross origin (Thanks Draco)
-        Vector3d eyeVecToLookVec = eyeVec.add(lookVec.x * distance, lookVec.y * distance, lookVec.z * distance);
+        Vec3d lookVec = e.getLook(1); // Where the player is looking
+        Vec3d eyeVec = e.getEyePosition(1); // This is the player's eye, the origin for the vector cross origin (Thanks Draco)
+        Vec3d eyeVecToLookVec = eyeVec.add(lookVec.x * distance, lookVec.y * distance, lookVec.z * distance);
         return e.world.rayTraceBlocks(new RayTraceContext(eyeVec, eyeVecToLookVec,
                 RayTraceContext.BlockMode.OUTLINE, fluids ?
                 RayTraceContext.FluidMode.ANY :
@@ -47,7 +44,7 @@ public class ToolUtilities
      * @param endVector      end vector
      * @param doDrops        doDrops of items
      */
-    public static void iterateAndRemove(PlayerEntity player, ItemStack stack, World world, BlockPos centerBlockPos, Vector3i startVector, Vector3i endVector, boolean doDrops)
+    public static void iterateAndRemove(PlayerEntity player, ItemStack stack, World world, BlockPos centerBlockPos, Vec3i startVector, Vec3i endVector, boolean doDrops)
     {
         for (BlockPos currentBlockPos : BlockPos.getAllInBoxMutable(centerBlockPos.add(startVector), centerBlockPos.add(endVector)))
         {
@@ -91,7 +88,7 @@ public class ToolUtilities
                     if (!doDrops)
                     {
                         block.harvestBlock(world, player, pos, state, tile, stack);
-                        block.dropXpOnBlockBreak((ServerWorld) world, pos, exp);
+                        block.dropXpOnBlockBreak(world, pos, exp);
                     }
                 }
             }

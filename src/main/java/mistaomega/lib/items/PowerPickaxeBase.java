@@ -14,9 +14,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3i;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
-import net.minecraftforge.common.property.Properties;
 
 import java.util.Set;
 import java.util.function.Consumer;
@@ -127,8 +126,8 @@ public class PowerPickaxeBase extends PowerToolBase
 
 
         //deciding whether to handle as range or block depth depending on the faces hit
-        Vector3i beginDiff = new Vector3i(doX ? -range : -depth, doY ? -1 : -depth, doZ ? -range : -depth);
-        Vector3i endDiff = new Vector3i(doX ? range : depth, doY ? rangeY * 2 - 1 : depth, doZ ? range : depth);
+        Vec3i beginDiff = new Vec3i(doX ? -range : -depth, doY ? -1 : -depth, doZ ? -range : -depth);
+        Vec3i endDiff = new Vec3i(doX ? range : depth, doY ? rangeY * 2 - 1 : depth, doZ ? range : depth);
 
         int total = calculateBreakPowerCost(pos, beginDiff, endDiff, world);
         if (getEnergyStored(stack) >= total)
@@ -152,7 +151,7 @@ public class PowerPickaxeBase extends PowerToolBase
         return !(getEnergyStored(itemStack) < world.getBlockState(pos).getBlockHardness(world, pos) * perBlockPowerReq);
     }
 
-    public int calculateBreakPowerCost(BlockPos centerBlockPos, Vector3i startVector, Vector3i endVector, World world)
+    public int calculateBreakPowerCost(BlockPos centerBlockPos, Vec3i startVector, Vec3i endVector, World world)
     {
         int total = 0;
         for (BlockPos currentBlockPos : BlockPos.getAllInBoxMutable(centerBlockPos.add(startVector), centerBlockPos.add(endVector)))

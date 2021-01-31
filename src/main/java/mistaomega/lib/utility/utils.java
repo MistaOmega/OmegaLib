@@ -8,6 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.items.ItemStackHandler;
@@ -44,7 +45,7 @@ public class utils
      * @param itemStack1 First ItemStack to check
      * @param itemStack2 Second ItemStack to check
      * @return true if ItemStack are equal
-     * Redone for 1.16.5 from a version by <strong>Pahimar</strong> {@link "https://github.com/pahimar" }
+     * Redone for 1.15.2 from a version by <strong>Pahimar</strong> {@link "https://github.com/pahimar" }
      */
     public static boolean isSameStackIgnoreSize(ItemStack itemStack1, ItemStack itemStack2)
     {
@@ -59,7 +60,7 @@ public class utils
                     //Metadata
                     if (itemStack1.getDamage() == itemStack2.getDamage())
                     {
-                        // Do they have NBT stuff going on
+                        // Do thet have NBT stuff going on
                         if (itemStack1.hasTag() && itemStack2.hasTag())
                         {
                             //Check the NBT stuff is the same
@@ -82,7 +83,7 @@ public class utils
 
     public static Item getItemFromResource(ResourceLocation resourceLocation)
     {
-        return (Registry.ITEM.getOptional(resourceLocation).orElseThrow(() -> new IllegalStateException("Item does not exist")));
+        return (Registry.ITEM.getValue(resourceLocation).orElseThrow(() -> new IllegalStateException("Item does not exist")));
     }
 
     /**
@@ -110,7 +111,7 @@ public class utils
      * @param destination Destination dimension
      * @param pos         position to move entity to
      */
-    public static void teleport(ServerPlayerEntity entity, ServerWorld destination, BlockPos pos)
+    public static void teleport(ServerPlayerEntity entity, DimensionType destination, BlockPos pos)
     {
         entity.changeDimension(destination, new ITeleporter()
         {

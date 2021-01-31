@@ -3,10 +3,10 @@ package mistaomega.lib.utility;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.math.vector.Vector3d;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,7 +21,7 @@ import java.util.function.UnaryOperator;
  */
 public class VoxelUtils
 {
-    private static final Vector3d vecFromOrigin = new Vector3d(-0.5, -0.5, -0.5);
+    private static final Vec3d vecFromOrigin = new Vec3d(-0.5, -0.5, -0.5);
 
     /**
      * This is for rotating the bounding box (NOT THE VOXEL SHAPE) to a specific side, using the Direction class
